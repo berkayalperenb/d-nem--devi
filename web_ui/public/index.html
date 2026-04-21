@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NumTool Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>NumTool <span>Terminal</span></h1>
+            <p>Advanced Number Theory Command Line Interface</p>
+        </header>
+
+        <main>
+            <div class="card glass-panel">
+                <div class="card-header">
+                    <h2>Input Commands</h2>
+                    <div class="actions">
+                        <button id="btn-example" class="btn btn-secondary">Load Example</button>
+                        <button id="btn-run" class="btn btn-primary">Run Execution <span class="glow"></span></button>
+                    </div>
+                </div>
+                <div class="editor-container">
+                    <div class="line-numbers" id="line-numbers">1</div>
+                    <textarea id="command-input" placeholder="Type your commands here...&#10;Example:&#10;GCD 12 18&#10;POW 2 3 5" spellcheck="false"></textarea>
+                </div>
+            </div>
+
+            <div class="card glass-panel terminal-card">
+                <div class="card-header">
+                    <h2>Execution Output</h2>
+                    <div class="window-controls">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+                <div class="terminal-container">
+                    <pre id="terminal-output" class="terminal-text">Waiting for input...</pre>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
