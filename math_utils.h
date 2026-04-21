@@ -1,3 +1,7 @@
+/*
+ * Ad Soyad   : Berkay Alperen Bayram
+ * Ogrenci No : 439541
+ */
 #ifndef MATH_UTILS_H
 #define MATH_UTILS_H
 

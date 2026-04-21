@@ -1,3 +1,7 @@
+/*
+ * Ad Soyad   : Berkay Alperen Bayram
+ * Ogrenci No : 439541
+ */
 #include "parser.h"
 #include "math_utils.h"
 

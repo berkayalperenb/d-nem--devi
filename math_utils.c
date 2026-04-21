@@ -1,3 +1,7 @@
+/*
+ * Ad Soyad   : Berkay Alperen Bayram
+ * Ogrenci No : 439541
+ */
 #include "math_utils.h"
 
 // Sayının mutlak değerini döndüren yardımcı fonksiyon
