@@ -109,8 +109,11 @@ int64_t phi_ll(int64_t n) {
 int check_inverse(int64_t a, int64_t m) {
     int64_t inv = 0;
     if (!mod_inverse(a, m, &inv)) {
-        return 0;
+        return -1;
     }
     int64_t left = ((a % m) + m) % m;
-    return ((left * inv) % m) == 1;
+    if (((left * inv) % m) == 1) {
+        return 1;
+    }
+    return 0;
 }

@@ -67,8 +67,8 @@ static void eval_command(const char *cmd, char *out, size_t out_sz) {
     }
 
     if (strcmp(op, "GCD") == 0) {
-        if (n != 3) {
-            snprintf(out, out_sz, "ERROR_INVALID_PARAMS");
+        if (n != 3 || a <= 0 || b <= 0) {
+            snprintf(out, out_sz, "ERROR_INVALID_INPUT");
             return;
         }
         snprintf(out, out_sz, "%" PRId64, gcd_ll(a, b));
@@ -76,7 +76,7 @@ static void eval_command(const char *cmd, char *out, size_t out_sz) {
     }
     if (strcmp(op, "INV") == 0) {
         if (n != 3) {
-            snprintf(out, out_sz, "ERROR_INVALID_PARAMS");
+            snprintf(out, out_sz, "ERROR_INVALID_INPUT");
             return;
         }
         if (!mod_inverse(a, b, &inv)) {
@@ -88,33 +88,33 @@ static void eval_command(const char *cmd, char *out, size_t out_sz) {
     }
     if (strcmp(op, "POW") == 0) {
         if (n != 4) {
-            snprintf(out, out_sz, "ERROR_INVALID_PARAMS");
+            snprintf(out, out_sz, "ERROR_INVALID_INPUT");
             return;
         }
         int64_t v = mod_pow(a, b, c);
         if (v < 0) {
-            snprintf(out, out_sz, "ERROR_INVALID_PARAMS");
+            snprintf(out, out_sz, "ERROR_INVALID_INPUT");
             return;
         }
         snprintf(out, out_sz, "%" PRId64, v);
         return;
     }
     if (strcmp(op, "PRIME") == 0) {
-        if (n != 2) {
-            snprintf(out, out_sz, "ERROR_INVALID_PARAMS");
+        if (n != 2 || a < 2) {
+            snprintf(out, out_sz, "ERROR_INVALID_INPUT");
             return;
         }
         snprintf(out, out_sz, is_prime_ll(a) ? "YES" : "NO");
         return;
     }
     if (strcmp(op, "PHI") == 0) {
-        if (n != 2) {
-            snprintf(out, out_sz, "ERROR_INVALID_PARAMS");
+        if (n != 2 || a < 1) {
+            snprintf(out, out_sz, "ERROR_INVALID_INPUT");
             return;
         }
         int64_t v = phi_ll(a);
         if (v < 0) {
-            snprintf(out, out_sz, "ERROR_INVALID_PARAMS");
+            snprintf(out, out_sz, "ERROR_INVALID_INPUT");
             return;
         }
         snprintf(out, out_sz, "%" PRId64, v);
@@ -122,10 +122,17 @@ static void eval_command(const char *cmd, char *out, size_t out_sz) {
     }
     if (strcmp(op, "CHECK") == 0) {
         if (n != 3) {
-            snprintf(out, out_sz, "ERROR_INVALID_PARAMS");
+            snprintf(out, out_sz, "ERROR_INVALID_INPUT");
             return;
         }
-        snprintf(out, out_sz, check_inverse(a, b) ? "CORRECT" : "ERROR_NO_INVERSE");
+        int res = check_inverse(a, b);
+        if (res == -1) {
+            snprintf(out, out_sz, "ERROR_NO_INVERSE");
+        } else if (res == 1) {
+            snprintf(out, out_sz, "CORRECT");
+        } else {
+            snprintf(out, out_sz, "FAILED");
+        }
         return;
     }
 
@@ -149,7 +156,7 @@ int process_input(FILE *in, FILE *out, RecordList *records) {
                 if (!records_push(records, cmd, result)) {
                     return 0;
                 }
-                fprintf(out, "%s\n", result);
+                fprintf(out, "%s -> %s\n", cmd, result);
             }
             token = strtok(NULL, ";");
         }
